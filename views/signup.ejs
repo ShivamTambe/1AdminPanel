@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/signup.css">
+    <title>Admin Panel Sign Up</title>
+</head>
+<body>
+<form action="/signup" method="post">
+    <div class="container">
+        <div class="title">Sign Up</div>
+        <div class="form">
+            <form action="login" method="post">
+                <div class="fullname">
+                    <div class="firstname">
+                        <div class="firstnametitle">First Name</div>
+                        <input type="text" name="lasatname">
+                    </div>
+                    <div class="lastname">
+                        <div class="lastnametitle">Last Name</div>
+                        <input type="text" name="lastname">
+                    </div>
+                </div>
+                <div class="fullname">
+                    <div class="firstname">
+                        <div class="firstnametitle">Email</div>
+                        <input type="text" name="email">
+                    </div>
+                    <div class="lastname">
+                        <div class="lastnametitle">Screen Name</div>
+                        <input type="text" name="lastname">
+                    </div>
+                </div>
+                <div class="fullname">
+                    <div class="firstname">
+                        <div class="firstnametitle">Password</div>
+                        <input type="text" name="password">
+                    </div>
+                    <div class="lastname">
+                        <div class="lastnametitle">Confirm Password</div>
+                        <input type="text" name="confirmpassword">
+                    </div>
+                </div>
+                <div class="fullname">
+                    <div class="firstname">
+                        <div class="firstnametitle">Date of Birth</div>
+                        <input type="date" name="" id="">
+                    </div>
+                    <div class="lastname">
+                        <div class="lastnametitle">Zip Code</div>
+                        <input type="text" name="lastname">
+                    </div>
+                </div>
+
+                <div class="fullname">
+                    <div >
+                        <div class="firstnametitle">Gender</div>
+                        <div class="genders">
+                            <div class="gender">
+                                <input type="radio"  name="male" class="radio">
+                                <label for="male">Male</label>  
+                            </div>
+                            <div class="gender">
+                                <input type="radio" name="female" class="radio">
+                                <label for="male">Female</label>  
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="newslater">
+                    <input type="radio" name="" id="" class="radio">
+                    <div class="newstxt">Sign up for a Newslatter</div>
+                </div>
+                <div class="submitbtn">
+                    <button class="login" type="submit">Submit</button>
+                    <div class="submittxt">By clicking SUBMIT you are argreeing to the Privacy policy and Terms of use.</div>
+                </div>
+            </form>
+        </div>
+
+        <div class="already">
+            I already have an account / <a href="/login">SIGN IN</a>
+        </div>
+    </div>
+</form>
+<img src="https://assets.website-files.com/609486d2fafa37698a57db5b/628e756e9f4514d25e1825d3_agent-herobg.svg"
+                alt="" class="sec1imgg">
+</body>
+</html>

@@ -1,0 +1,85 @@
+.fullname{
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+    margin: 10px 0;
+}
+input{
+    width: 304px;
+    padding: 11px;
+    background-color: #1c1c1f;
+    color: inherit;
+    border: 1px solid #34343a;
+}
+.radio{
+    width: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+.genders{
+    display: flex;
+    margin-top: 5px;
+}
+.gender{
+    margin-right: 10px;
+}
+.newslater{
+    display: flex;
+    margin-top: 15px;
+}
+form{
+    align-items: flex-start;
+}
+button {
+    width: 173px;
+}
+.submitbtn{
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+
+}
+.submittxt{
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    width: 400px;
+}
+.already{
+    margin-top: 20px;
+    width: 740px;
+    top: 563px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    text-align: center;
+    background-color: #252824;
+}
+.container{
+    padding: 20px;
+    color: #ededef;
+    background-color: #161618;
+}
+.title{
+    font-size: 2.5rem;
+}
+
+img{
+    position: absolute;
+    left: 0;
+    top: .5%;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+}
