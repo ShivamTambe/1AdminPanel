@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.left{
+    width: 10vw;
+    height: 100vh;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+}
+.ltop{
+    display: flex;
+    flex-direction: column;
+}
+.right{
+    width: 90vvw;
+    height: 100vh;
+    background-color: burlywood;
+}
+.admin{
+    display: flex;
+}

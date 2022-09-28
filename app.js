@@ -152,6 +152,9 @@ app.get("/", function(req, res){
 app.get("/signup", function(req, res){
     res.render("signup");
 })
+app.get("/admin", function(req, res){
+    res.render("admin");
+})
 
 app.listen(port, function(){
     console.log("server is running on prot "+ port);
