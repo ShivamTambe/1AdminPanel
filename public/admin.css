@@ -4,9 +4,37 @@
 .filterinputs label{
     margin-right: 20px;
 }
+.filterinputs{
+    display: none;
+}
+.filtertext:hover{
+    cursor: pointer;
+}
 .gyminfo{
     width: 200px;
-    background-color: aqua;
     margin: 10px;
-    border: 2px solid red;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    padding-bottom: 10px;
+}
+.profileimg img{
+    width: 70px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: 2px solid gray;
+    border-radius: 25%;
+}
+.gymname{
+    position: relative;
+    top: -25px;
+}
+.otherinfo{
+    text-align: justify;
+}
+.allgyms{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
 }

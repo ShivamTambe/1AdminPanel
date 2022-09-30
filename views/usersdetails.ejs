@@ -174,11 +174,10 @@
                     <div class="filter">
                         <div class="filtertext" onclick="filter()">Filter</div>
                         <div class="filterinputs" id="filtertabs">
-                            <form action="/filtersearch" method="post">
+                            <form action="/filterusers" method="post">
                                 <input type="checkbox" name="all" id="" ><label for="">All</label>
-                                <input type="checkbox" name="premium" id=""><label for="">Premimum</label>
-                                <input type="checkbox" name="economical" id=""><label for="">Economical</label>
-                                <input type="checkbox" name="pacakage" id=""><label for="">Economical</label>
+                                <input type="checkbox" name="msg" id=""><label for="">Message</label>
+                                <input type="checkbox" name="train" id=""><label for="">Training</label>
                                 <button type="submit">Filter</button>
                             </form>
                         </div>
@@ -188,18 +187,13 @@
                         <% for(var i=0; i<item.length; i++) {%>
                             <div class="gyminfo">
                                 <div class="profileimg"><img src="/img/th.jpg" alt="" class="img"></div>
-                                <div class="gymname"><%= item[i].gymname%></div>
                                 <div class="gymname"><%= item[i].name%></div>
                                 <div class="otherinfo">
-                                    <div class="gymprice">Price:  <%= item[i].price %></div>
-                                    <div class="discountprice">Discount Price: <%= item[i].discountprice%></div>
-                                    <div class="state">State: <%= item[i].state %></div>
-                                    <div class="city">City: <%= item[i].city %></div>
+                                    <div class="city">Service: <%= item[i].service %></div>
                                 </div>
                             </div>
                          <% } %>
                     </div>
-
                     <!-- /Stats Row Ends Here -->
 
                     <!-- Card Sextion Starts Here -->
