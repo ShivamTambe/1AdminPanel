@@ -13,8 +13,10 @@ app.set('view engine', 'ejs');
 
 
 
-// mongoose.connect("mongodb+srv://Admin:Admin123@cluster0.cuic2kf.mongodb.net/todolistDB",{useNewUrlParser: true});
-mongoose.connect("mongodb+srv://shivam:Shivam123@cluster0.gcp5u27.mongodb.net/GYMlistDB",{useNewUrlParser: true});
+// mongoose.connect("mongodb+srv://Admin:Admin123@cluster0.gcp5u27.mongodb.net/GYMlistDB",{useNewUrlParser: true});
+mongoose.connect("mongodb+srv://shivam:Shivam123@cluster0.gcp5u27.mongodb.net/GYMlistDB?ssl=true",{useNewUrlParser: true});
+// mongoose.connect("mongodb://<username>:<password>@ac-pp1j05o-shard-00-00.gcp5u27.mongodb.net:27017,ac-pp1j05o-shard-00-01.gcp5u27.mongodb.net:27017,ac-pp1j05o-shard-00-02.gcp5u27.mongodb.net:27017/businesslistDB?ssl=true&replicaSet=atlas-xmkp7m-shard-0&authSource=admin&retryWrites=true&w=majority",{useNewUrlParser: true});
+// mongodb://shivam:Shivam123@ac-pp1j05o-shard-00-00.gcp5u27.mongodb.net:27017,ac-pp1j05o-shard-00-01.gcp5u27.mongodb.net:27017,ac-pp1j05o-shard-00-02.gcp5u27.mongodb.net:27017/?ssl=true&replicaSet=atlas-xmkp7m-shard-0&authSource=admin&retryWrites=true&w=majority
 
 app.use(bodyparser.urlencoded({extended:false}))
 app.use(express.json());
@@ -39,11 +41,15 @@ const gymSchema ={
 const userSchema ={
     name : String,
     service : String
+};
+const businessSchema ={
+    businessname : String,
+    bio : String
 }
 
 const GymInfo = mongoose.model("GymInfo", gymSchema);
 const UserInfo = mongoose.model("UserInfo", userSchema)
-
+const BusinessInfo = mongoose.model("BusinessInfo", businessSchema);
 const person2 = new GymInfo({
     gymname: "gym",
     price : 300,
@@ -110,6 +116,33 @@ const defaultitems = [ person2];
 //     }
 //     res.redirect("/login");
 // })
+
+
+
+
+
+
+app.post("/addbusiness",function(req, res){
+
+        let newbusiness = new BusinessInfo({
+            businessname : req.body.businessname,
+            bio : req.body.bio
+        })
+        newbusiness.save();
+    res.redirect("/addbusiness");
+})
+
+app.post("/addusers",function(req, res){
+
+        let newuser = new UserInfo({
+            name : req.body.username,
+            service: req.body.service
+        })
+
+        newuser.save();
+
+    res.redirect("/addusers");
+})
 app.post("/addgyms",function(req, res){
     let name = req.body.name;
     let password = req.body.pass;
@@ -148,12 +181,23 @@ app.post("/addusers",function(req, res){
     res.redirect("/addusers");
 })
 
+app.get("/businessdetails", function(req,res){
+    // GymInfo.find({}, function(err, foundItems){
+    //         return foundItems;
+    //     });
+    BusinessInfo.find().then(result =>{
+        // console.log(result);
+        res.render('businessdetails',{ item : result});
+    }).catch(err => console.log(err));
+})
+
 app.get("/gyms", function(req,res){
     // GymInfo.find({}, function(err, foundItems){
     //         // console.log(foundItems);
     //         return foundItems;
     //     });
     GymInfo.find().then(result =>{
+        // console.log(result);
         res.render('admin',{ item : result});
     }).catch(err => console.log(err));
 })
@@ -300,7 +344,9 @@ app.post("/filterusers",function(req, res){
 })
 
 
-
+app.get("/addbusiness",function(req,res){
+    res.render('addbusiness');
+})
 app.get("/forms",function(req,res){
     res.render("forms");
 })

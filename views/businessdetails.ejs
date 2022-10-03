@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/all.css">
     <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/addbusiness.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
     <title>Dashboard | Tailwind Admin</title>
 </head>
@@ -170,7 +171,7 @@
                         <div class="shadow bg-warning border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/4 mx-2">
                             <div class="p-4 flex flex-col">
                                 <a href="/addbusiness" class="no-underline text-white text-2xl">
-                                  Add Business
+                                   Add Business
                                 </a>
                             </div>
                         </div>
@@ -183,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="filter">
+                    <!-- <div class="filter">
                         <div class="filtertext" onclick="filter()">Filter</div>
                         <div class="filterinputs" id="filtertabs">
                             <form action="/filterusers" method="post">
@@ -193,15 +194,15 @@
                                 <button type="submit">Filter</button>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="allgyms">
                         <% for(var i=0; i<item.length; i++) {%>
                             <div class="gyminfo">
                                 <div class="profileimg"><img src="/img/th.jpg" alt="" class="img"></div>
-                                <div class="gymname"><%= item[i].name%></div>
+                                <div class="gymname"><%= item[i].businessname%></div>
                                 <div class="otherinfo">
-                                    <div class="city">Service: <%= item[i].service %></div>
+                                    <div class="city">Bio: <%= item[i].bio %></div>
                                 </div>
                             </div>
                          <% } %>
