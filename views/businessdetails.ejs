@@ -199,6 +199,9 @@
                     <div class="allgyms">
                         <% for(var i=0; i<item.length; i++) {%>
                             <div class="gyminfo">
+                                <div class="rightcorner" onclick="edit('<%= item[i].id%>')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24.001 8.534l-11.103 11.218-5.898 1.248 1.361-5.784 11.104-11.216 4.536 4.534zm-24 10.466l-.001 2h5v-2h-4.999z"/></svg>
+                                </div>
                                 <div class="profileimg"><img src="/img/th.jpg" alt="" class="img"></div>
                                 <div class="gymname"><%= item[i].businessname%></div>
                                 <div class="otherinfo">
@@ -226,23 +229,131 @@
         </footer>
         <!--/footer-->
 
+        <div class="edit" id="editt">
+            <form method="post" action="/editbusiness" >
+                <main class="bg-white-500 flex-1 p-3 overflow-hidden">
+                    <div class="flex flex-col editdiv">
+                        <!-- Card Sextion Starts Here -->
+                        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                            <!--Horizontal -->
+                            <div class="mb-2 border-solid border-grey-light rounded border shadow-sm w-full md:w-1/2 lg:w-1/2 admindiv">
+                                <div class="bg-gray-300 px-2 py-3 border-solid border-gray-400 border-b">
+                                    Admin Information
+                                </div>
+                                <div class="p-3">
+                                        <div class="md:flex md:items-center mb-6">
+                                            <div class="md:w-1/4">
+                                                <label class="block text-gray-500 font-regular md:text-right mb-1 md:mb-0 pr-4"
+                                                    for="inline-full-name">
+                                                    Name
+                                                </label>
+                                            </div>
+                                            <div class="md:w-3/4">
+                                                <input class="bg-grey-200 appearance-none border-1 border-grey-200 rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple-light"
+                                                    id="inline-full-name" type="text" value="Jane Doe" name="name">
+                                            </div>
+                                        </div>
+                                        <div class="md:flex md:items-center mb-6">
+                                            <div class="md:w-1/4">
+                                                <label class="block text-grey font-regular md:text-right mb-1 md:mb-0 pr-4"
+                                                    for="inline-username">
+                                                    Password
+                                                </label>
+                                            </div>
+                                            <div class="md:w-3/4">
+                                                <input class="bg-grey-200 appearance-none border-1 border-grey-200 rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple-light"
+                                                    id="inline-username" type="password"
+                                                    placeholder="******************" name="pass">
+                                            </div>
+                                        </div>
+                                        <div class="md:flex md:items-center">
+                                            <div class="md:w-1/3"></div>
+                                            <div class="md:w-2/3">
+                                                <button class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                                        type="submit">
+                                                    Confirm
+                                                </button>
+                                            </div>
+                                            <div class="md:w-2/3">
+                                                <a href="/gyms">
+                                                    <div class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cancle"
+                                                        type="" >
+                                                    Cancel
+                                                    </div>
+                                                </a> 
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+                            <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+                                <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+                                    Change Gym Details
+                                </div>
+                                <div class="p-3" id="change">
+                                        <div class="flex flex-wrap -mx-3 mb-6">
+                                            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                                                    for="grid-first-name">
+                                                    Changed Business Name 
+                                                </label>
+                                                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500"
+                                                    id="grid-first-name" type="text" placeholder="Business Name" name="businessname">
+                                                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                                            </div>
+                                            <div class="w-full md:w-1/2 px-3">
+                                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                                                    for="grid-last-name">
+                                                    Business Bio
+                                                </label>
+                                                <textarea class="appearance-none block w-full bg-gray-200 text-grey-darker border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white-500 focus:border-gray-600"
+                                                    id="grid-last-name" type="number" placeholder="Bio" name="bio"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-wrap -mx-3 mb-6">
+                                            <div class="w-full px-3">
+                                                <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
+                                                    for="grid-password">
+                                                    Field
+                                                </label>
+                                                <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                                                    id="grid-password" type="text" placeholder="Technical" name="businessfield">
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-wrap -mx-3 mb-2">
+                                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                                <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
+                                                    for="grid-city">
+                                                    State
+                                                </label>
+                                                <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                                                    id="grid-city" type="text" placeholder="Washington" name="bstate">
+                                            </div>
+                                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                                <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
+                                                    for="grid-city">
+                                                    City
+                                                </label>
+                                                <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                                                    id="grid-city" type="text" placeholder="City" name="bcity">
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/Grid Form-->
+                    </div>
+                </main>
+            </form>
+        </div>
+
     </div>
 
 </div>
-<!-- <script >
-    function allgyms(){
-        fetch('/get')
-        .then(function (response){
-            return response.json();
-        })    
-        .then(function(data){
-            console.log(data);
-        })
-    }
-</script> -->
 <script >
     function filter(){
-        console.log("jello");
         let filteroptions = document.getElementById("filtertabs");
         const element = document.querySelector('#filtertabs')
         const style = getComputedStyle(element);
@@ -252,6 +363,37 @@
         }
         else{
             filteroptions.style.display = "none";
+        }
+    }
+    let count=0;
+    function edit(e){
+        count++;
+        console.log(e);
+        let editt = document.getElementById("editt");
+        if(editt.style.display == 'none'){
+            editt.style.display='flex';
+            var getMeTo = document.getElementById("editt");
+            getMeTo.scrollIntoView({behavior: 'smooth'}, true);
+            document.body.style.overflowY="hidden";
+        }
+        else{
+            editt.style.display='none';
+            document.body.style.overflowY="none";
+        }
+        var d1 = document.getElementById('change');
+        if(count>1){
+            d1.insertAdjacentHTML('afterend', `<div class="md:flex md:items-center mb-6 visible">
+                                        <div class="md:w-1/4">
+                                            <label class="block text-gray-500 font-regular md:text-right mb-1 md:mb-0 pr-4"
+                                                for="inline-full-name">
+                                                Id
+                                            </label>
+                                        </div>
+                                        <div class="md:w-3/4">
+                                            <input class="bg-grey-200 appearance-none border-1 border-grey-200 rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple-light"
+                                                id="inline-full-name" type="text" value="${e}" name="changeid">
+                                        </div>
+                                    </div>`);
         }
     }
 </script>

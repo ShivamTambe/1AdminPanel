@@ -342,7 +342,43 @@ app.post("/filterusers",function(req, res){
         }
     }
 })
+app.post("/editgyms",function(req,res){
+    let editid = req.body.changeid;
+    let pricee = req.body.price;
+    let gymnamee = req.body.gymname;
+    let discountpricee = req.body.discountprice;
+    let statee= req.body.state;
+    let cityy = req.body.city;
+    let zipcodee = req.body.zipcode;
+    console.log(editid);
+    GymInfo.updateOne({_id:editid},{$set:{gymname:`${gymnamee}`}}).then(result =>{
+        console.log(result);
+    });
+    res.redirect("/gyms");
 
+})
+
+app.post("/editbusiness",function(req,res){
+    let editid = req.body.changeid;
+    let businessnamee = req.body.businessname;
+    console.log(editid);
+    BusinessInfo.updateOne({_id:editid},{$set:{businessname:`${businessnamee}`}}).then(result =>{
+        console.log(result);
+    });
+    res.redirect("/businessdetails");
+
+})
+
+app.post("/editusers",function(req,res){
+    let editid = req.body.changeid;
+    let usernamee = req.body.username;
+    console.log(editid);
+    UserInfo.updateOne({_id:editid},{$set:{name:`${usernamee}`}}).then(result =>{
+        console.log(result);
+    });
+    res.redirect("/usersdetails");
+
+})
 
 app.get("/addbusiness",function(req,res){
     res.render('addbusiness');

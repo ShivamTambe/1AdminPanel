@@ -10,6 +10,9 @@
 .filtertext:hover{
     cursor: pointer;
 }
+.gyminfo:hover{
+    cursor: pointer;
+}
 .gyminfo{
     width: 200px;
     margin: 10px;
@@ -37,4 +40,37 @@
     display: grid;
     grid-template-columns: auto auto auto;
     padding: 10px;
+}
+
+.edit{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: burlywood;
+    overflow-y: hidden;
+}
+.rightcorner{
+    position: relative;
+    right: -89px;
+}
+.visible{
+    opacity: 0;
+}
+.editdiv{
+    flex-direction: row;
+}
+.admindiv{
+    width: 100%;
+}
+.cancle{
+    width:88px;
+}
+@media (min-width: 1024px){
+.admindiv {
+    width: 100%;
+}
 }
