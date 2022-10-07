@@ -15,19 +15,21 @@
 </head>
 
 <body>
+    <%- include('../partials/donate.ejs'); %>
 <!--Container -->
 <div class="mx-auto bg-grey-400">
     <!--Screen-->
     <div class="min-h-screen flex flex-col">
         <!--Header Section Starts Here-->
-        <header class="bg-nav">
+        <header class="bg-nav" id="header">
             <div class="flex justify-between">
                 <div class="p-1 mx-3 inline-flex items-center">
                     <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
                     <h1 class="text-white p-2">Logo</h1>
                 </div>
                 <div class="p-1 flex flex-row items-center">
-                    <%- include('../partials/search.ejs'); %>
+                    <a href="https://github.com/tailwindadmin/admin" class="text-white p-2 mr-2 no-underline hidden md:block lg:block">Github</a>
+
 
                     <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full" src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
                     <a href="#" onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Adam Wathan</a>
@@ -202,15 +204,18 @@
                     <div class="filter">
                         <div class="filtertext" onclick="filter()">Filter</div>
                         <div class="filterinputs" id="filtertabs">
-                            <form action="/filterusers" method="post">
+                            <form action="/filtersearch" method="post">
                                 <input type="checkbox" name="all" id="" ><label for="">All</label>
-                                <input type="checkbox" name="msg" id=""><label for="">Message</label>
-                                <input type="checkbox" name="train" id=""><label for="">Training</label>
+                                <input type="checkbox" name="premium" id="pacakage500" onclick="checkdata()"><label for="">$500 Package</label>
+                                <input type="checkbox" name="economical" id="pacakage150" onclick="checkdata()"><label for="">$150 Package</label>
                                 <button type="submit">Filter</button>
+                                <div class="preeco" id="ecopre">
+                                    <input type="checkbox" id="premimum1" name="premimum1"  ><label>Premimum</label>
+                                    <input type="checkbox" id="economical1" name="economical1" ><label>Economical</label>
+                                </div>
                             </form>
                         </div>
                     </div>
-
                     <div class="allgyms">
                         <% for(var i=0; i<item.length; i++) {%>
                             <div class="gyminfo">
@@ -218,17 +223,14 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24.001 8.534l-11.103 11.218-5.898 1.248 1.361-5.784 11.104-11.216 4.536 4.534zm-24 10.466l-.001 2h5v-2h-4.999z"/></svg>
                                 </div>
                                 <div class="profileimg"><img src="/img/th.jpg" alt="" class="img"></div>
-                                <div class="gymname"><%= item[i].name%></div>
+                                <div class="gymname"><%= item[i].trainername%></div>
                                 <div class="otherinfo">
-                                    <div class="city">Bio: <%= item[i].userbio %></div>
-                                    <div class="city">Service: <%= item[i].service %></div>
-                                    <div class="city">City: <%= item[i].city %></div>
-                                    <div class="city">State: <%= item[i].state %></div>
-                                    <div class="city">ZipCode: <%= item[i].zipcode %></div>
+                                    <div class="gymprice">Bio:  <%= item[i].trainerbio %></div>
                                 </div>
                             </div>
                          <% } %>
                     </div>
+
                     <!-- /Stats Row Ends Here -->
 
                     <!-- Card Sextion Starts Here -->
@@ -251,7 +253,7 @@
     </div>
 
     <div class="edit" id="editt">
-        <form method="post" action="/editusers" >
+        <form method="post" action="/editpersonaltrainer" >
             <main class="bg-white-500 flex-1 p-3 overflow-hidden">
                 <div class="flex flex-col editdiv">
                     <!-- Card Sextion Starts Here -->
@@ -296,7 +298,7 @@
                                             </button>
                                         </div>
                                         <div class="md:w-2/3">
-                                            <a href="/usersdetails">
+                                            <a href="/personaltrainer">
                                                 <div class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cancle"
                                                     type="" >
                                                 Cancel
@@ -311,54 +313,26 @@
                     <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
                         <div class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
                             <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
-                                Change Gym Details
+                                Change Trainers Details
                             </div>
                             <div class="p-3" id="change">
                                     <div class="flex flex-wrap -mx-3 mb-6">
                                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
                                                 for="grid-first-name">
-                                                Changed User Name 
+                                                New Trainer Name
                                             </label>
                                             <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500"
-                                                id="grid-first-name" type="text" placeholder="Business Name" name="username">
+                                                id="grid-first-name" type="text" placeholder="Trainer's Name" name="trainername">
                                             <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                                         </div>
                                         <div class="w-full md:w-1/2 px-3">
                                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
                                                 for="grid-last-name">
-                                                Business Bio
+                                                Trainer's Bio
                                             </label>
                                             <textarea class="appearance-none block w-full bg-gray-200 text-grey-darker border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white-500 focus:border-gray-600"
-                                                id="grid-last-name" type="number" placeholder="Bio" name="bio"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap -mx-3 mb-6">
-                                        <div class="w-full px-3">
-                                            <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
-                                                for="grid-password">
-                                                Field
-                                            </label>
-                                            <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                                                id="grid-password" type="text" placeholder="Technical" name="businessfield">
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-wrap -mx-3 mb-2">
-                                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                            <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
-                                                for="grid-city">
-                                                State
-                                            </label>
-                                            <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                                                id="grid-city" type="text" placeholder="Washington" name="bstate">
-                                        </div>
-                                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                                            <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
-                                                for="grid-city">
-                                                City
-                                            </label>
-                                            <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-                                                id="grid-city" type="text" placeholder="City" name="bcity">
+                                                id="grid-last-name" type="text" placeholder="Bio" name="trainerbio"></textarea>
                                         </div>
                                     </div>
                             </div>
@@ -384,6 +358,28 @@
             filteroptions.style.display = "none";
         }
     }
+
+    function checkdata(){
+        console.log("clicked");
+        let filteroptions = document.getElementById("ecopre");
+        const style = getComputedStyle(filteroptions);
+        let premimum1 = document.querySelector("#pacakage500");
+        let economical1 = document.querySelector("#pacakage150");
+        console.log(style.display);
+        console.log(premimum1.checked)
+        if(premimum1.checked == true){
+            filteroptions.style.display = "block";
+        }
+        else{
+            if(economical1.checked == true){
+                filteroptions.style.display = "block";
+            }
+            else{
+                filteroptions.style.display = "none";
+            }
+        }
+    }
+
     let count=0;
     function edit(e){
         count++;
@@ -413,99 +409,6 @@
                                                 id="inline-full-name" type="text" value="${e}" name="changeid">
                                         </div>
                                     </div>`);
-        }
-    }
-
-    function searchoption(){
-        console.log("hellooo");
-        let options = document.getElementById("options");
-        const element = document.querySelector('#options');
-        const style = getComputedStyle(element);
-        let searchbyname = document.getElementById("searchbyname");
-        let searchbycity = document.getElementById("searchbycity");
-        let searchbystate = document.getElementById("searchbystate");
-        let searchbyzip = document.getElementById("searchbyzip");
-        if(style.display == "none"){
-            options.style.display = "block";
-        }
-        else{
-            options.style.display = "none";
-            searchbyname.style.display = "none";
-            searchbycity.style.display = "none";
-            searchbystate.style.display = "none";
-            searchbyzip.style.display = "none";
-        }
-    }
-
-    function names(){
-        let searchbyname = document.getElementById("searchbyname");
-        let searchbycity = document.getElementById("searchbycity");
-        let searchbystate = document.getElementById("searchbystate");
-        let searchbyzip = document.getElementById("searchbyzip");
-        const element = document.querySelector('#searchbyname');
-        const stylename = getComputedStyle(element);
-        if(stylename.display == "none"){
-            searchbyname.style.display = "block";
-            searchbycity.style.display = "none";
-            searchbystate.style.display = "none";
-            searchbyzip.style.display = "none";
-        }
-        else{
-            searchbyname.style.display = "none";
-        }
-    }
-
-    function city(){
-        let searchbyname = document.getElementById("searchbyname");
-        let searchbycity = document.getElementById("searchbycity");
-        let searchbystate = document.getElementById("searchbystate");
-        let searchbyzip = document.getElementById("searchbyzip");
-        const element = document.querySelector('#searchbycity');
-        const stylename = getComputedStyle(element);
-        if(stylename.display == "none"){
-            searchbyname.style.display = "none";
-            searchbycity.style.display = "block";
-            searchbystate.style.display = "none";
-            searchbyzip.style.display = "none";
-        }
-        else{
-            searchbyname.style.display = "none";
-        }
-    }
-
-    function state(){
-        let searchbyname = document.getElementById("searchbyname");
-        let searchbycity = document.getElementById("searchbycity");
-        let searchbystate = document.getElementById("searchbystate");
-        let searchbyzip = document.getElementById("searchbyzip");
-        const element = document.querySelector('#searchbystate');
-        const stylename = getComputedStyle(element);
-        if(stylename.display == "none"){
-            searchbyname.style.display = "none";
-            searchbycity.style.display = "none";
-            searchbystate.style.display = "block";
-            searchbyzip.style.display = "none";
-        }
-        else{
-            searchbyname.style.display = "none";
-        }
-    }
-
-    function zip(){
-        let searchbyname = document.getElementById("searchbyname");
-        let searchbycity = document.getElementById("searchbycity");
-        let searchbystate = document.getElementById("searchbystate");
-        let searchbyzip = document.getElementById("searchbyzip");
-        const element = document.querySelector('#searchbyzip');
-        const stylename = getComputedStyle(element);
-        if(stylename.display == "none"){
-            searchbyname.style.display = "none";
-            searchbycity.style.display = "none";
-            searchbystate.style.display = "none";
-            searchbyzip.style.display = "block";
-        }
-        else{
-            searchbyname.style.display = "none";
         }
     }
 </script>
