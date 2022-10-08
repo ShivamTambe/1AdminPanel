@@ -49,50 +49,80 @@ const personalSchema={
     trainerbio: String,
     location: String
 }
+const adminSchema ={
+    username : String,
+    password : String,
+    id: String
+};
+
 
 const GymInfo = mongoose.model("GymInfo", gymSchema);
 const UserInfo = mongoose.model("UserInfo", userSchema)
 const BusinessInfo = mongoose.model("BusinessInfo", businessSchema);
 const PersonalTrainer = mongoose.model("PersonalTrainer",personalSchema);
+const adminInfo = mongoose.model("adminInfo",adminSchema);
 
 app.post("/addpersonaltrainer",function(req, res){
-
-    let newtrainer = new PersonalTrainer({
-        trainername : req.body.trainername,
-        trainerbio : req.body.trainerbio
-    })
-    newtrainer.save();
-res.redirect("/addpersonaltrainer");
+    let name = req.body.username;
+    let password = req.body.adminpassword;
+    adminInfo.find().then(result =>{
+        console.log(result);
+        for(var i=0; i<1; i++) {
+                if(password == result[i].password && name == result[i].username){
+                    let newtrainer = new PersonalTrainer({
+                        trainername : req.body.trainername,
+                        trainerbio : req.body.trainerbio
+                    })
+                    newtrainer.save();
+            }
+            res.redirect("/addpersonaltrainer");
+        }
+    }).catch(err => console.log(err));
 })
 
 app.post("/addbusiness",function(req, res){
-
-        let newbusiness = new BusinessInfo({
-            businessname : req.body.businessname,
-            bio : req.body.bio
-        })
-        newbusiness.save();
-    res.redirect("/addbusiness");
+    let name = req.body.username;
+    let password = req.body.adminpassword;
+    adminInfo.find().then(result =>{
+        console.log(result);
+        for(var i=0; i<1; i++) {
+                if(password == result[i].password && name == result[i].username){
+                    let newbusiness = new BusinessInfo({
+                        businessname : req.body.businessname,
+                        bio : req.body.bio
+                    })
+                    newbusiness.save();
+            }
+            res.redirect("/addbusiness");
+        }
+    }).catch(err => console.log(err));
 })
 
 app.post("/addusers",function(req, res){
-
-        let newuser = new UserInfo({
-            name : req.body.username,
-            service: req.body.service,
-            userbio: req.body.userbio,
-            city : req.body.city,
-            state : req.body.state,
-            zipcode : req.body.zip
-        })
-
-        newuser.save();
-
-    res.redirect("/addusers");
+    let name = req.body.username;
+    let password = req.body.adminpassword;
+    adminInfo.find().then(result =>{
+        console.log(result);
+        for(var i=0; i<1; i++) {
+                if(password == result[i].password && name == result[i].username){
+                    let newuser = new UserInfo({
+                        name : req.body.username,
+                        service: req.body.service,
+                        userbio: req.body.userbio,
+                        city : req.body.city,
+                        state : req.body.state,
+                        zipcode : req.body.zip
+                    })
+            
+                    newuser.save();
+            }
+            res.redirect("/addusers");
+        }
+    }).catch(err => console.log(err));
 })
 app.post("/addgyms",function(req, res){
-    let name = req.body.name;
-    let password = req.body.pass;
+    let name = req.body.username;
+    let password = req.body.adminpassword;
     let pricee = req.body.price;
     let gymnamee = req.body.gymname;
     let discountpricee = req.body.discountprice;
@@ -102,33 +132,49 @@ app.post("/addgyms",function(req, res){
     let gymbio = req.body.gymbio;
 
         
-    // if(name == "admin" && password =="admin@123"){
-        let newgym = new GymInfo({
-            gymname : gymnamee,
-            price : pricee,
-            gymbio: gymbio,
-            discountprice:discountpricee,
-            state: statee,
-            city : cityy,
-            zipcode:zipcodee
-        })
+    adminInfo.find().then(result =>{
+        console.log(result);
+        for(var i=0; i<1; i++) {
+            // console.log(result[i].password);
+            // console.log(result[i].username);
 
-        newgym.save();
-    // }
-    res.redirect("/forms");
+                if(password == result[i].password && name == result[i].username){
+                let newgym = new GymInfo({
+                    gymname : gymnamee,
+                    price : pricee,
+                    gymbio: gymbio,
+                    discountprice:discountpricee,
+                    state: statee,
+                    city : cityy,
+                    zipcode:zipcodee
+                })
+        
+                newgym.save();
+            }
+            res.redirect("/forms");
+        }
+        // console.log(result[1].adminpassword);
+        // console.log(password);
+    }).catch(err => console.log(err));
 })
 
-app.post("/addusers",function(req, res){
-
-        let newuser = new UserInfo({
-            name : req.body.username,
-            service: req.body.service
-        })
-
-        newuser.save();
-
-    res.redirect("/addusers");
-})
+// app.post("/addusers",function(req, res){
+//     let name = req.body.username;
+//     let password = req.body.adminpassword;
+//     adminInfo.find().then(result =>{
+//         console.log(result);
+//         for(var i=0; i<1; i++) {
+//                 if(password == result[i].password && name == result[i].username){
+//                     let newuser = new UserInfo({
+//                         name : req.body.username,
+//                         service: req.body.service
+//                     })
+//                     newuser.save();
+//             }
+//             res.redirect("/addusers");
+//         }
+//     }).catch(err => console.log(err));
+// })
 
 
 app.get("/personaltrainer", function(req,res){
@@ -367,7 +413,6 @@ app.post("/editusers",function(req,res){
         console.log(result);
     });
     res.redirect("/usersdetails");
-
 })
 
 app.post("/searchbyname",function(req,res){
@@ -396,6 +441,33 @@ app.post("/searchbyzip",function(req,res){
 })
 
 
+
+
+
+app.post("/changeadmin",function(req,res){
+    let newusername = req.body.newusername;
+    let newpassword = req.body.newpassword;
+    let confirmpassword = req.body.confirmpassword;
+    console.log(newpassword);
+    console.log(confirmpassword);
+
+    if(newpassword == confirmpassword){
+        adminInfo.updateOne({id:'admin'},{$set:{password:`${newpassword}`}}).then(result =>{
+            console.log(result);
+        });
+        adminInfo.updateOne({id:'admin'},{$set:{username:`${newusername}`}}).then(result =>{
+            console.log(result);
+        });
+    }
+    GymInfo.find().then(result =>{
+        res.render('admin',{ item : result, type: "gyms"});
+    }).catch(err => console.log(err));
+})
+
+
+app.get("/changeadmin",function(req,res){
+    res.render('changeadmin');
+})
 app.get("/addpersonaltrainer",function(req,res){
     res.render('addpersonaltrainer');
 })
@@ -416,6 +488,9 @@ app.get("/admin", function(req, res){
 })
 app.get("/addgyms", function(req,res){
     res.render("forms");
+})
+app.get("/graph",function(req,res){
+    res.render('graph')
 })
 
 app.listen(port, function(){

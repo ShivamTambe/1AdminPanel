@@ -56290,4 +56290,10 @@
       z-index: auto;
     }
   }
+
   
+  @media (min-width: 1024px){
+  .width{
+    width: 100%;
+  }
+}
