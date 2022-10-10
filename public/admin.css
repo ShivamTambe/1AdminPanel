@@ -104,6 +104,7 @@
     margin-left: 19px;
 }
 .donate{
+    display: none;
     position: fixed;
     height: 125px;
     width: 211px;
@@ -262,3 +263,23 @@
 .btn:hover{
     cursor: pointer;
 }
+.mb-2{
+    background-color: #e46050;
+    border-color: #d64230;
+}
+.bg-success,.bg-info{
+    background-color: #00ff00;
+    border-color: rgb(49, 190, 49);
+}
+.affilate{
+    background-color: #89cff0;
+    border-color: #46b5e8;
+}
+.personal{
+    background-color: #ffb52c;
+    border-color: #ffa500;
+}
+.logo{
+    width: 120px;
+}
+
