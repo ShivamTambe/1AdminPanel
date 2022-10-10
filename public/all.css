@@ -3675,3 +3675,7 @@
     display: flex;
     gap: 20px;
 }
+.logo{
+  width: 120px;
+}
+
