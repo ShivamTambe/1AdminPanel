@@ -1,0 +1,39 @@
+.setmax{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+.maxvalues{
+    display: flex;
+    gap: 20px;
+}
+.ecovalue,.prevalue{
+    border: 1px solid;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.subbutton{
+    margin-top: 20px;
+}
+input{
+    margin-top: 20px;
+    border-bottom: 1px solid;
+}
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+button{
+    border-radius: 25px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #89cff0;
+    border-color: #46b5e8;
+}

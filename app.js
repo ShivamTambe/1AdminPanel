@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const md5 = require("md5");
 // const { userInfo } = require("os");
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
@@ -39,7 +39,8 @@ const userSchema ={
     userbio: String,
     city: String,
     state: String,
-    zipcode : Number
+    zipcode : Number,
+    email: String
 };
 const businessSchema ={
     businessname : String,
@@ -59,7 +60,12 @@ const promoSchema={
     promocode: String,
     value: Number
 }
-
+const ecoSchema ={
+    max:Number
+};
+const preSchema ={
+    max:Number
+};
 
 
 
@@ -69,6 +75,10 @@ const BusinessInfo = mongoose.model("BusinessInfo", businessSchema);
 const PersonalTrainer = mongoose.model("PersonalTrainer",personalSchema);
 const adminInfo = mongoose.model("adminInfo",adminSchema);
 const PromoInfo = mongoose.model("PromoInfo",promoSchema);
+const EcoInfo = mongoose.model("EcoInfo",ecoSchema);
+const PreInfo = mongoose.model("PreInfo",preSchema);
+
+
 
 
 app.post("/addpersonaltrainer",function(req, res){
@@ -511,6 +521,28 @@ app.post("/changeadmin",function(req,res){
 })
 
 
+
+
+app.post("/setmax",function(req,res){
+    let maxeco = req.body.ecovalue;
+    let maxpre = req.body.prevalue;
+
+    adminInfo.updateOne({$set:{max:`${maxeco}`}}).then(result =>{
+        console.log(result);
+    });
+    adminInfo.updateOne({$set:{max:`${maxpre}`}}).then(result =>{
+        console.log(result);
+    });
+})
+
+app.get("/email",function(req,res){
+    UserInfo.find().then(result =>{
+        res.render('email',{ item : result});
+    }).catch(err => console.log(err));
+})
+app.get("/setmax",function(req,res){
+    res.render("setmax");
+})
 app.get("/changeadmin",function(req,res){
     res.render('changeadmin');
 })
@@ -539,6 +571,9 @@ app.get("/graph",function(req,res){
     res.render('graph')
 })
 
-app.listen(port, function(){
-    console.log("server is running on prot "+ port);
+// app.listen(port, function(){
+//     console.log("server is running on prot "+ port);
+// })
+app.listen(500, function(){
+    console.log("server is runnn prot "+ 500);
 })

@@ -1,0 +1,31 @@
+.emailinfo{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        flex-direction: row;
+        padding: 10px 20px;
+}
+input{
+    position: relative;
+    top: -7px;
+    font-size: 17px;
+}
+.btn {
+    background-color: #0A46E4;
+    padding: 10px;
+    border-radius: 25px;
+    width: 20%;
+    display: flex;
+    color: white;
+    justify-content: center;
+}
+.allemails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+.title{
+    text-align: center;
+    font-size: 1.5rem;
+}
