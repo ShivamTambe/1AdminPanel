@@ -131,24 +131,24 @@
                         </a>
                     </li>
                     <li class="w-full h-full py-3 px-2 border-b border-300-border">
-                        <a href="modals.html" class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                        <a href="/moreinfo" class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                             <i class="fas fa-square-full float-left mx-2"></i>
-                            Modals
+                            Add more Information
                             <span><i class="fa fa-angle-right float-right"></i></span>
                         </a>
                     </li>
                     <li class="w-full h-full py-3 px-2">
-                        <a href="#"
+                        <a href="upload"
                            class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                             <i class="far fa-file float-left mx-2"></i>
-                            Pages
+                            Add home page content
                             <span><i class="fa fa-angle-down float-right"></i></span>
                         </a>
                         <ul class="list-reset -mx-2 bg-white-medium-dark">
                             <li class="border-t mt-2 border-light-border w-full h-full px-2 py-3">
-                                <a href="login.html"
+                                <a href="/addgymlogo"
                                    class="mx-4 font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                                    Login Page
+                                    Add gym logo
                                     <span><i class="fa fa-angle-right float-right"></i></span>
                                 </a>
                             </li>
@@ -415,7 +415,6 @@
             </main>
         </form>
     </div>
-
 </div>
 <script >
     function filter(){
@@ -457,6 +456,7 @@
         count++;
         console.log(e);
         let editt = document.getElementById("editt");
+        console.log(editt);
         if(editt.style.display == 'none'){
             editt.style.display='flex';
             var getMeTo = document.getElementById("editt");

@@ -5,6 +5,9 @@ const app = express();
 const bodyparser = require('body-parser');
 const mongoose = require("mongoose");
 const md5 = require("md5");
+var fs = require('fs');
+var multer = require('multer');
+// var imgModel = require('./model');
 // const { userInfo } = require("os");
 
 const port = process.env.PORT || 5001;
@@ -66,6 +69,31 @@ const ecoSchema ={
 const preSchema ={
     max:Number
 };
+const moreSchema ={
+    title : String,
+    dis : String
+};
+var imageSchema = new mongoose.Schema({
+    name: String,
+    desc: String,
+    firsttitle: String,
+    secondtitle: String,
+    thirdtitle:String,
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
+});
+  
+var gymlogoSchema = new mongoose.Schema({
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
+});
+  
 
 
 
@@ -77,13 +105,119 @@ const adminInfo = mongoose.model("adminInfo",adminSchema);
 const PromoInfo = mongoose.model("PromoInfo",promoSchema);
 const EcoInfo = mongoose.model("EcoInfo",ecoSchema);
 const PreInfo = mongoose.model("PreInfo",preSchema);
+const MoreInfo = mongoose.model("MoreInfo",moreSchema);
+
+const imgModel = mongoose.model("imgModel",imageSchema);
+const gymLogo = mongoose.model("gymLogo",gymlogoSchema);
 
 
 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+var upload = multer({ storage: storage });
 
+
+
+app.get('/addgymlogo', (req, res) => {
+    gymLogo.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('addgymlogo', { items: items });
+        }
+    });
+});
+
+app.post('/upload', upload.single('image'), (req, res, next) => {
+  
+    var obj = {
+        img:{
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    gymLogo.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/addgymlogo');
+        }
+    });
+});
+
+app.get('/upload', (req, res) => {
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('imagePage', { items: items });
+        }
+    });
+});
+
+app.post('/upload', upload.single('image'), (req, res, next) => {
+  
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        firsttitle: req.body.firsttitle,
+        secondtitle: req.body.secondtitle,
+        thirdtitle: req.body.thirdtitle,
+        img:{
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/upload');
+        }
+    });
+});
+
+
+
+app.post("/moreinfo",function(req, res){
+    let name = req.body.username;
+    let password = req.body.adminpassword;
+    console.log(name);
+    console.log(password);
+    adminInfo.find().then(result =>{
+        console.log(result);
+        for(var i=0; i<1; i++) {
+                if(password == result[i].password && name == result[i].username){
+                    let newinfo = new MoreInfo({
+                        title : req.body.title,
+                        dis : req.body.dis
+                    })
+                    newinfo.save();
+            }
+            res.redirect("/moreinfo");
+        }
+    }).catch(err => console.log(err));
+})
 app.post("/addpersonaltrainer",function(req, res){
     let name = req.body.username;
     let password = req.body.adminpassword;
+    console.log(name);
+    console.log(password);
     adminInfo.find().then(result =>{
         console.log(result);
         for(var i=0; i<1; i++) {
@@ -245,7 +379,12 @@ app.get("/addusers",function(req,res){
 app.get("/login",function(req, res){
     res.render("login");
 })
-
+app.get("/moreinfo",function(req,res){
+    MoreInfo.find().then(result =>{
+        console.log(result);
+        res.render("moreinfo",{item: result});
+    }).catch(err => console.log(err));
+})
 
 
 app.post("/addpromo",function(req,res){
@@ -425,6 +564,18 @@ app.post("/filterusers",function(req, res){
             }
         }
     }
+})
+
+
+app.post("/editmoreinfo",function(req,res){
+    let editid = req.body.changeid;
+    let titlee = req.body.title;
+    let diss = req.body.dis;
+    console.log(editid);
+    MoreInfo.updateOne({_id:editid},{$set:{title:`${titlee}`,dis:`${diss}`}}).then(result =>{
+        console.log(result);
+    });
+    res.redirect("/moreinfo");
 })
 app.post("/editgyms",function(req,res){
     let editid = req.body.changeid;
