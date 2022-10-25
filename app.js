@@ -10,7 +10,7 @@ var multer = require('multer');
 // var imgModel = require('./model');
 // const { userInfo } = require("os");
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 500;
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
@@ -722,9 +722,9 @@ app.get("/graph",function(req,res){
     res.render('graph')
 })
 
-// app.listen(port, function(){
-//     console.log("server is running on prot "+ port);
-// })
-app.listen(500, function(){
-    console.log("server is runnn prot "+ 500);
+app.listen(port, function(){
+    console.log("server is running on prot "+ port);
 })
+// app.listen(500, function(){
+//     console.log("server is runnn prot "+ 500);
+// })
