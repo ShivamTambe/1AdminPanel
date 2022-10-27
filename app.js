@@ -27,6 +27,10 @@ app.use(express.json());
 
 
 const gymSchema ={
+    title1:String,
+    title2:String,
+    title3:String,
+    title4:String,
     gymname : String,
     price : Number,
     gymbio: String,
@@ -34,7 +38,11 @@ const gymSchema ={
     state: String,
     city : String,
     zipcode:Number,
-    image: String
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
 };
 const userSchema ={
     name : String,
@@ -70,15 +78,25 @@ const preSchema ={
     max:Number
 };
 const moreSchema ={
-    title : String,
-    dis : String
+    title: String,
+    title1 : String,
+    title2 : String,
+    title3 : String,
+    title4 : String    
 };
+var colorSchema = new mongoose.Schema({
+    color1: String,
+    color2: String,
+    color3: String,
+    color4: String
+});
 var imageSchema = new mongoose.Schema({
     name: String,
     desc: String,
     firsttitle: String,
     secondtitle: String,
     thirdtitle:String,
+    fourthtitle:String,
     img:
     {
         data: Buffer,
@@ -93,11 +111,26 @@ var gymlogoSchema = new mongoose.Schema({
         contentType: String
     }
 });
+
+var newgymSchema = new mongoose.Schema({
+    name: String,
+    desc: String,
+    gymname: String,
+    title: String,
+    firsttitle: String,
+    secondtitle: String,
+    thirdtitle:String,
+    fourthtitle:String,
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
+});
   
 
 
 
-const GymInfo = mongoose.model("GymInfo", gymSchema);
 const UserInfo = mongoose.model("UserInfo", userSchema)
 const BusinessInfo = mongoose.model("BusinessInfo", businessSchema);
 const PersonalTrainer = mongoose.model("PersonalTrainer",personalSchema);
@@ -106,9 +139,15 @@ const PromoInfo = mongoose.model("PromoInfo",promoSchema);
 const EcoInfo = mongoose.model("EcoInfo",ecoSchema);
 const PreInfo = mongoose.model("PreInfo",preSchema);
 const MoreInfo = mongoose.model("MoreInfo",moreSchema);
+const color = mongoose.model("color",colorSchema);
+
+
 
 const imgModel = mongoose.model("imgModel",imageSchema);
 const gymLogo = mongoose.model("gymLogo",gymlogoSchema);
+const gymInfo = mongoose.model("gymInfo",gymSchema);
+const newgModel = mongoose.model("newgModel",newgymSchema);
+
 
 
 
@@ -125,6 +164,63 @@ var upload = multer({ storage: storage });
 
 
 
+
+
+
+
+
+
+app.get("/gyms", function(req,res){
+    gymInfo.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('admin', { item: items });
+        }
+    });
+});
+app.post('/addgyms', upload.single('image'), (req, res, next) => {
+    // console.log(req.file.filename);
+    var obj = {
+        title1: req.body.title1,
+        title2: req.body.title2,
+        title3: req.body.title3,
+        title4: req.body.title4,
+        gymname: req.body.gymname,
+        img:{
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    gymInfo.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/addgyms');
+        }
+    });
+});
+
+
+app.post("/color",function(req,res){
+    let color1= req.body.color1;
+    let color2= req.body.color2;
+    let color3= req.body.color3;
+    let color4= req.body.color4;
+
+    color.updateOne({$set:{color1:`${color1}`,color2:`${color2}`,color3:`${color3}`,color4:`${color4}`}}).then(result =>{
+        console.log(result);
+    });
+    res.redirect("/color");
+});
+app.get("/color",function(req,res){
+    res.render("color");
+})
+
 app.get('/addgymlogo', (req, res) => {
     gymLogo.find({}, (err, items) => {
         if (err) {
@@ -137,14 +233,18 @@ app.get('/addgymlogo', (req, res) => {
     });
 });
 
-app.post('/upload', upload.single('image'), (req, res, next) => {
-  
+app.post('/uploadgymlogo', upload.single('image'), (req, res, next) => {
     var obj = {
+        firsttitle: req.body.firsttitle,
+        secondtitle: req.body.secondtitle,
+        thirdtitle: req.body.thirdtitle,
+        fourthtitle: req.body.fourthtitle,
         img:{
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }
     }
+    console.log(req.file.filename);
     gymLogo.create(obj, (err, item) => {
         if (err) {
             console.log(err);
@@ -204,8 +304,11 @@ app.post("/moreinfo",function(req, res){
         for(var i=0; i<1; i++) {
                 if(password == result[i].password && name == result[i].username){
                     let newinfo = new MoreInfo({
-                        title : req.body.title,
-                        dis : req.body.dis
+                        title: req.body.title,
+                        title1 : req.body.title1,
+                        title2 : req.body.title2,
+                        title3 : req.body.title3,
+                        title4 : req.body.title4,
                     })
                     newinfo.save();
             }
@@ -274,44 +377,6 @@ app.post("/addusers",function(req, res){
         }
     }).catch(err => console.log(err));
 })
-app.post("/addgyms",function(req, res){
-    let name = req.body.username;
-    let password = req.body.adminpassword;
-    let pricee = req.body.price;
-    let gymnamee = req.body.gymname;
-    let discountpricee = req.body.discountprice;
-    let statee= req.body.state;
-    let cityy = req.body.city;
-    let zipcodee = req.body.zipcode;
-    let gymbio = req.body.gymbio;
-    let profileimg = req.body.gymimg;
-
-        
-    adminInfo.find().then(result =>{
-        console.log(result);
-        for(var i=0; i<1; i++) {
-            // console.log(result[i].password);
-            // console.log(result[i].username);
-
-                if(password == result[i].password && name == result[i].username){
-                let newgym = new GymInfo({
-                    gymname : gymnamee,
-                    price : pricee,
-                    gymbio: gymbio,
-                    discountprice:discountpricee,
-                    state: statee,
-                    city : cityy,
-                    zipcode:zipcodee
-                })
-        
-                newgym.save();
-            }
-            res.redirect("/forms");
-        }
-        // console.log(result[1].adminpassword);
-        // console.log(password);
-    }).catch(err => console.log(err));
-})
 
 // app.post("/addusers",function(req, res){
 //     let name = req.body.username;
@@ -354,16 +419,6 @@ app.get("/businessdetails", function(req,res){
     }).catch(err => console.log(err));
 })
 
-app.get("/gyms", function(req,res){
-    // GymInfo.find({}, function(err, foundItems){
-    //         // console.log(foundItems);
-    //         return foundItems;
-    //     });
-    GymInfo.find().then(result =>{
-        // console.log(result);
-        res.render('admin',{ item : result});
-    }).catch(err => console.log(err));
-})
 app.get("/users", function(req,res){
     // GymInfo.find({}, function(err, foundItems){
     //         return foundItems;

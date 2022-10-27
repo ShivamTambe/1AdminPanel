@@ -153,9 +153,9 @@
                                 </a>
                             </li>
                             <li class="border-t border-light-border w-full h-full px-2 py-3">
-                                <a href="register.html"
+                                <a href="/color"
                                    class="mx-4 font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
-                                    Register Page
+                                    Home page colors
                                     <span><i class="fa fa-angle-right float-right"></i></span>
                                 </a>
                             </li>
@@ -256,23 +256,23 @@
                         </div>
                     </div>
                     <div class="allgyms">
-                        <% for(var i=0; i<item.length; i++) {%>
+                        <% item.forEach(function(image) { %>
                             <div class="gyminfo">
-                                <div class="rightcorner" onclick="edit('<%= item[i].id%>')">
+                                <div class="rightcorner">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24.001 8.534l-11.103 11.218-5.898 1.248 1.361-5.784 11.104-11.216 4.536 4.534zm-24 10.466l-.001 2h5v-2h-4.999z"/></svg>
                                 </div>
-                                <div class="profileimg"><img src="/img/th.jpg" alt="" class="img"></div>
-                                <div class="gymname"><%= item[i].gymname%></div>
-                                <div class="gymname"><%= item[i].name%></div>
+                                <div class="profileimg">
+                                    <img src="data:image/<%=image.img.contentType%>;base64,
+                                    <%=image.img.data.toString('base64')%>">
+                                </div>
+                                <div class="gymname"><%= image.gymname%></div>
                                 <div class="otherinfo">
-                                    <div class="gymprice">Bio  <%= item[i].gymbio %></div>
-                                    <div class="gymprice">Price:  <%= item[i].price %></div>
-                                    <div class="discountprice">Discount Price: <%= item[i].discountprice%></div>
-                                    <div class="state">State: <%= item[i].state %></div>
-                                    <div class="city">City: <%= item[i].city %></div>
+                                    <div class="gymprice line2">  <%= image.title2 %></div>
+                                    <div class="discountprice line3"> <%= image.title3%></div>
+                                    <div class="state line3"><%= image.title4 %></div>
                                 </div>
                             </div>
-                         <% } %>
+                         <% }) %>
                     </div>
 
                     <!-- /Stats Row Ends Here -->

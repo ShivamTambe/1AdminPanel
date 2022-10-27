@@ -96,3 +96,11 @@ textarea{
 .retrive img{
     height: 200px;
 }
+.color{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.colorsec{
+    margin: 20px auto;
+}
