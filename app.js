@@ -38,6 +38,7 @@ const gymSchema ={
     state: String,
     city : String,
     zipcode:Number,
+    plan:String,
     img:
     {
         data: Buffer,
