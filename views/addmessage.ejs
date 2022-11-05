@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="/all.css">
     <link rel="stylesheet" href="/admin.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="/setmax.css">
+    <link rel="stylesheet" href="/footer.css">
+    <link rel="stylesheet" href="/addemail.css">
+    <link rel="stylesheet" href="/addmessage.css">
     <title>Dashboard | Tailwind Admin</title>
 </head>
 
@@ -27,7 +29,7 @@
 
         <div class="flex flex-1">
             <!--Sidebar-->
-               <%- include('../partials/aside.ejs'); %>
+            <%- include('../partials/aside.ejs'); %>
             <!--/Sidebar-->
             <!--Main-->
             <main class="bg-white-300 flex-1 p-3 overflow-hidden">
@@ -97,24 +99,14 @@
                         </div>
                     </div>
 
-                    <div class="setmax">
-                        <form action="/setmax" method="post">
-                            <div class="maxvalues">
-                                <div class="ecovalue">
-                                    <label for="">SET MAX VALUE FOR $150</label>
-                                    <input type="text" name="ecovalue" placeholder="Enter max values">
-                                </div>
-                                <div class="prevalue">
-                                    <label for="">SET MAX VALUE FOR $500</label>
-                                    <input type="text" name="prevalue" placeholder="Enter max values">
-                                </div>
-                            </div>
-                            <button type="submit" class="subbutton">SUBMIT</button>
-                        </form>
+                <form action="/addmassage" method="post">
+                    <div class="email">
+                        <label for="">Add Message</label>
+                        <textarea type="text" name="massage"></textarea>
                     </div>
-
+                    <button type="submit" class="btn">Submit</button>
+                </form>
             </main>
-            <!--/Main-->
         </div>
         <!--Footer-->
         <footer class="bg-grey-darkest text-white p-2">
@@ -123,7 +115,6 @@
         <!--/footer-->
 
     </div>
-
 </div>
 </body>
 

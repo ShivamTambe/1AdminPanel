@@ -1,0 +1,15 @@
+.email{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: aquamarine;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    background-color: aquamarine;
+    padding: 20px;
+}
+.btn{
+    background-color: brown;
+}

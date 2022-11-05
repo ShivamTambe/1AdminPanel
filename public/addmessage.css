@@ -1,0 +1,7 @@
+.email{
+    align-items: flex-start;
+}
+textarea{
+    width: 200px;
+    height: 100px;
+}

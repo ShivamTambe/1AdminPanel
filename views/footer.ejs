@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/all.css">
     <link rel="stylesheet" href="/admin.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="/setmax.css">
+    <link rel="stylesheet" href="/footer.css">
     <title>Dashboard | Tailwind Admin</title>
 </head>
 
@@ -27,7 +27,7 @@
 
         <div class="flex flex-1">
             <!--Sidebar-->
-               <%- include('../partials/aside.ejs'); %>
+            <%- include('../partials/aside.ejs'); %>
             <!--/Sidebar-->
             <!--Main-->
             <main class="bg-white-300 flex-1 p-3 overflow-hidden">
@@ -97,22 +97,81 @@
                         </div>
                     </div>
 
-                    <div class="setmax">
-                        <form action="/setmax" method="post">
-                            <div class="maxvalues">
-                                <div class="ecovalue">
-                                    <label for="">SET MAX VALUE FOR $150</label>
-                                    <input type="text" name="ecovalue" placeholder="Enter max values">
+                <form action="/editfoot" method="post">
+                    <div class="foot">
+                        <div class="other border">
+                            <div class="ft">VE's Other Projects</div>
+                                <div class="det">
+                                    <label>App Development</label>
+                                    <input type="text" name="app">
                                 </div>
-                                <div class="prevalue">
-                                    <label for="">SET MAX VALUE FOR $500</label>
-                                    <input type="text" name="prevalue" placeholder="Enter max values">
+                        </div>
+                        <div class="fitness border">
+                            <div class="ft">Your Fitness</div>
+                                <div class="det">
+                                    <label>Why</label>
+                                    <input type="text" name="why">
                                 </div>
-                            </div>
-                            <button type="submit" class="subbutton">SUBMIT</button>
-                        </form>
+                                <div class="det">
+                                    <label>Training</label>
+                                    <input type="text" name="training">
+                                </div>
+                                <div class="det">
+                                    <label>Tips</label>
+                                    <input type="text" name="tip">
+                                </div>
+                              
+                        </div>
+                        <div class="social border">
+                            <div class="ft">Contact Us</div>
+                                <div class="det">
+                                    <label>Facebook</label>
+                                    <input type="text" name="facebook">
+                                </div>
+                                <div class="det">
+                                    <label>Instagram</label>
+                                    <input type="text" name="instagram">
+                                </div>
+                                <div class="det">
+                                    <label>Twitter</label>
+                                    <input type="text" name="twitter">
+                                </div>
+                                <div class="det">
+                                    <label>Pinstrest</label>
+                                    <input type="text" name="pinstrest">
+                                </div>
+                              
+                        </div>
+                        <div class="affilatee border">
+                            <div class="ft">Affiliate Businesses</div>
+                                <div class="det">
+                                    <label>Top 1</label>
+                                    <input type="text" name="top1">
+                                </div>
+                                <div class="det">
+                                    <label>Top 2</label>
+                                    <input type="text" name="top2">
+                                </div>
+                                <div class="det">
+                                    <label>Top 3</label>
+                                    <input type="text" name="top3">
+                                </div>
+                              
+                        </div>
                     </div>
+                    <button type="submit" class="btn">Apply</button>
+                </form>
 
+                    <!-- /Stats Row Ends Here -->
+
+                    <!-- Card Sextion Starts Here -->
+                   
+                    <!-- /Cards Section Ends Here -->
+
+                    <!-- Progress Bar -->
+                    
+                    <!--Profile Tabs-->
+                    
             </main>
             <!--/Main-->
         </div>
@@ -123,7 +182,6 @@
         <!--/footer-->
 
     </div>
-
 </div>
 </body>
 
