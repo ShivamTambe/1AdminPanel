@@ -25,7 +25,9 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(express.json());
 
 
-
+const taxSchema = {
+    tax : Number
+}
 const massageSchema ={
     massage : String
 };
@@ -162,7 +164,7 @@ var newgymSchema = new mongoose.Schema({
 });
 
 
-
+const TaxInfo = mongoose.model("TaxInfo", taxSchema);
 const MassageInfo = mongoose.model("MassageInfo", massageSchema);
 const EmailInfo = mongoose.model("EmailInfo", emailSchema);
 const OtherInfo = mongoose.model("OtherInfo", otherSchema);
@@ -204,7 +206,18 @@ var upload = multer({ storage: storage });
 
 
 
+app.get("/tax",function(req,res){
+    TaxInfo.find().then(result => {
+        res.render("tax",{tax:result[0].tax});    
+    });
+})
+app.post("/tax",function(req,res){
+    let tax = req.body.tax;
+    TaxInfo.updateOne({ $set: { tax: `${tax}`} }).then(result => {
+        res.redirect("/tax");    
+    });
 
+})
 app.post("/addmassage",function(req,res){
     let massage = req.body.massage;
     MassageInfo.updateOne({ $set: { massage: `${massage}`} }).then(result => {
@@ -355,7 +368,21 @@ app.get('/upload', (req, res) => {
         }
     });
 });
-
+app.post("/up",upload.single('image'),function(req,res){
+    // UserInfo.updateMany({firstname:"goku"}, {$set:
+    //     {
+    //         "img": {
+    //             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+    //             contentType: 'image/png'
+    //         }
+    //     }
+    // }).then(result=>{
+    //     console.log(result);
+    // })
+})
+app.get("/up",function(req,res){
+    res.render("aademo")
+})
 app.post('/upload', upload.single('image'), (req, res, next) => {
 
     var obj = {
