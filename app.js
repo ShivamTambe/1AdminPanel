@@ -187,7 +187,7 @@ const color = mongoose.model("color", colorSchema);
 
 const imgModel = mongoose.model("imgModel", imageSchema);
 const gymLogo = mongoose.model("gymLogo", gymlogoSchema);
-const gymInfo = mongoose.model("gymInfo", gymSchema);
+const GymInfo = mongoose.model("GymInfo", gymSchema);
 const newgModel = mongoose.model("newgModel", newgymSchema);
 
 
@@ -272,7 +272,7 @@ app.get("/gyms", function (req, res){
     //     massage : "Welcome "
     // })
     // newmassage.save();
-    gymInfo.find({}, (err, items) => {
+    GymInfo.find({}, (err, items) => {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
@@ -295,7 +295,7 @@ app.post('/addgyms', upload.single('image'), (req, res, next) => {
             contentType: 'image/png'
         }
     }
-    gymInfo.create(obj, (err, item) => {
+    GymInfo.create(obj, (err, item) => {
         if (err) {
             console.log(err);
         }
@@ -369,7 +369,7 @@ app.get('/upload', (req, res) => {
     });
 });
 app.post("/up",upload.single('image'),function(req,res){
-    // UserInfo.updateMany({firstname:"goku"}, {$set:
+    // UserInfo.updateMany({firstname:"Empire Gaming"}, {$set:
     //     {
     //         "img": {
     //             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
@@ -517,12 +517,12 @@ app.post("/addusers", function (req, res) {
 app.get("/addpromo", function (req, res) {
     res.render("addpromo");
 })
+
 app.get("/personaltrainer", function (req, res) {
     PersonalTrainer.find().then(result => {
         res.render('personaltrainer', { item: result });
     }).catch(err => console.log(err));
 })
-
 
 app.get("/businessdetails", function (req, res) {
     // GymInfo.find({}, function(err, foundItems){
