@@ -13,3 +13,19 @@ form{
 .btn{
     background-color: brown;
 }
+.ecogymse{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#gymss{
+    display: flex;
+    gap: 50px;
+}
+.titl{
+    text-align: center;
+}
+.ecogymse input{
+    border: 2px solid;
+    height: 40px;
+    border-radius: 5px;
+}

@@ -25,6 +25,32 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(express.json());
 
 
+
+
+const Pricing1Schema = {
+    first:String,
+    second:String,
+    third:String,
+    forth:String,
+    fifth:String,
+    sixth:String,
+    seventh:String,
+    eight:String,
+    nineth:String,
+    tenth:String
+};
+const Pricing2Schema = {
+    first:String,
+    second:String,
+    third:String,
+    forth:String,
+    fifth:String,
+    sixth:String,
+    seventh:String,
+    eight:String,
+    nineth:String,
+    tenth:String
+};
 const taxSchema = {
     tax : Number
 }
@@ -100,7 +126,9 @@ const personalSchema = {
 const adminSchema = {
     username: String,
     password: String,
-    id: String
+    id : String,
+    less : Number,
+    large:Number
 };
 const promoSchema = {
     promocode: String,
@@ -164,6 +192,9 @@ var newgymSchema = new mongoose.Schema({
 });
 
 
+
+const PricingInfo1 = mongoose.model("PricingInfo1", Pricing1Schema);
+const PricingInfo2 = mongoose.model("PricingInfo2", Pricing2Schema);
 const TaxInfo = mongoose.model("TaxInfo", taxSchema);
 const MassageInfo = mongoose.model("MassageInfo", massageSchema);
 const EmailInfo = mongoose.model("EmailInfo", emailSchema);
@@ -368,17 +399,18 @@ app.get('/upload', (req, res) => {
         }
     });
 });
+// "img": {
+//     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+//     contentType: 'image/png'
+// }
 app.post("/up",upload.single('image'),function(req,res){
-    // UserInfo.updateMany({firstname:"Empire Gaming"}, {$set:
-    //     {
-    //         "img": {
-    //             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-    //             contentType: 'image/png'
-    //         }
-    //     }
-    // }).then(result=>{
-    //     console.log(result);
-    // })
+    imgModel.updateMany({firstname:"Empire Gaming"}, {$set:
+        {
+            "img":""
+        }
+    }).then(result=>{
+        console.log(result);
+    }) 
 })
 app.get("/up",function(req,res){
     res.render("aademo")
@@ -750,13 +782,31 @@ app.post("/editmoreinfo", function (req, res) {
 app.post("/editgyms", function (req, res) {
     let editid = req.body.changeid;
     let pricee = req.body.price;
+    let title2 = req.body.title2;
+    let title3 = req.body.title3;
     let gymnamee = req.body.gymname;
     let discountpricee = req.body.discountprice;
     let statee = req.body.state;
     let cityy = req.body.city;
     let zipcodee = req.body.zipcode;
+    let title4 = req.body.title4;
+    let price = req.body.price;
+    let plan = req.body.plan;
+    let plan2 = req.body.plan2;
+
     console.log(editid);
-    GymInfo.updateOne({ _id: editid }, { $set: { gymname: `${gymnamee}` } }).then(result => {
+    GymInfo.updateOne({ _id: editid }, 
+        {
+             $set: { 
+                title1: `${gymnamee}` ,
+                title2 : title2,
+                title3 : title3,
+                title4 : title4,
+                price :price,
+                plan :plan,
+                plan2 :plan2
+            }
+        }).then(result => {
         console.log(result);
     });
     res.redirect("/gyms");
@@ -770,7 +820,53 @@ app.post("/editpersonaltrainer", function (req, res) {
     });
     res.redirect("/personaltrainer");
 })
-
+app.post("/gymschange",function(req,res){
+    console.log("thten");
+    console.log(req.body.tenth);
+    PricingInfo1.updateMany({$set:
+        {
+            first:req.body.first,
+            second:req.body.second,
+            third:req.body.third,
+            forth:req.body.forth,
+            fifth:req.body.fifth,
+            sixth:req.body.sixth,
+            seventh:req.body.seventh,
+            eightth:req.body.eightth,
+            nineth:req.body.nineth,
+            tenth:req.body.tenth
+        }
+    }).then(ecogyms=>{
+        PricingInfo2.updateMany( {$set:
+            {
+                first:req.body.firstp,
+                second:req.body.secondp,
+                third:req.body.thirdp,
+                forth:req.body.forthp,
+                fifth:req.body.fifthp,
+                sixth:req.body.sixthp,
+                seventh:req.body.seventhp,
+                eightth:req.body.eightthp,
+                nineth:req.body.ninethp,
+                tenth:req.body.tenthp
+            }
+        }).then(pregyms=>{
+            PricingInfo1.find().then(ecogyms => {
+                PricingInfo2.find().then(pregyms => {
+                    res.render("pricinggyms",{ecogyms:ecogyms[0],pregyms:pregyms[0]});
+            }).catch(err => console.log(err));
+        }).catch(err => console.log(err));
+            // res.render("pricinggyms",{ecogyms:ecogyms[0],pregyms:pregyms[0]/
+        })
+    }) 
+})
+app.get("/pricinggyms",function(req,res){
+    PricingInfo1.find().then(ecogyms => {
+        PricingInfo2.find().then(pregyms => {
+            res.render("pricinggyms",{ecogyms:ecogyms[0],pregyms:pregyms[0]});
+    }).catch(err => console.log(err));
+}).catch(err => console.log(err));
+})
 app.post("/editbusiness", function (req, res) {
     let editid = req.body.changeid;
     let businessnamee = req.body.businessname;
@@ -848,11 +944,12 @@ app.post("/setmax", function (req, res) {
     let maxeco = req.body.ecovalue;
     let maxpre = req.body.prevalue;
 
-    adminInfo.updateOne({ $set: { max: `${maxeco}` } }).then(result => {
+    adminInfo.updateOne({ $set: { less: `${maxeco}` } }).then(result => {
         console.log(result);
-    });
-    adminInfo.updateOne({ $set: { max: `${maxpre}` } }).then(result => {
-        console.log(result);
+        adminInfo.updateOne({ $set: { large: `${maxpre}` } }).then(result => {
+            console.log(result);
+            res.render("setmax");
+        });
     });
 })
 
