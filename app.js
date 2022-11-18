@@ -784,7 +784,7 @@ app.post("/editgyms", function (req, res) {
     let pricee = req.body.price;
     let title2 = req.body.title2;
     let title3 = req.body.title3;
-    let gymnamee = req.body.gymname;
+    let gymnamee = req.body.title1;
     let discountpricee = req.body.discountprice;
     let statee = req.body.state;
     let cityy = req.body.city;
