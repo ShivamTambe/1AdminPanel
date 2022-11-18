@@ -321,6 +321,9 @@ app.post('/addgyms', upload.single('image'), (req, res, next) => {
         title3: req.body.title3,
         title4: req.body.title4,
         gymname: req.body.gymname,
+        plan : req.body.plan,
+        plan2 : req.body.plan2,
+        price: req.body.price,
         img: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
